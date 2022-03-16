@@ -1,0 +1,39 @@
+version: '2.1'
+
+services:
+
+  code-server:
+    image: lscr.io/linuxserver/code-server
+    container_name: code-server
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - PASSWORD=password #optional
+      - HASHED_PASSWORD= #optional
+      - SUDO_PASSWORD=password #optional
+      - SUDO_PASSWORD_HASH= #optional
+      - PROXY_DOMAIN=code-server.my.domain #optional
+      - DEFAULT_WORKSPACE=/config/workspace #optional
+    # volumes:
+    #   - /path/to/appdata/config:/config
+    ports:
+      - 8443:8443
+    restart: unless-stopped
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+    
+  # pgadmin4:
+  #   image: dpage/pgadmin4
+  #   restart: always
+  #   ports: 
+  #     - 9091:80
+  
+  #   environment:
+  #       PGADMIN_DEFAULT_EMAIL: abc123@hotmail.com
+  #       PGADMIN_DEFAULT_PASSWORD: docker
+  #       PGADMIN_LISTEN_PORT: 80
+   
